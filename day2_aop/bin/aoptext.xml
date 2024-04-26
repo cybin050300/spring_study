@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+	<!-- 1. target -->
+	<bean id="calcTarget" class="com.cyb.aop.Calculator"></bean>
+	
+	<!-- 2. advice -->
+	<bean id="LogAdivce" class="com.cyb.aop.LoggingAdvice"></bean>
+	
+	<!-- 3. target and Advice config : ProxyFactoryBean -->
+	<!-- ProxyFactoryBean : target(FactoryBean), interceptorNames  -->
+	<bean id ="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="calcTarget" />
+		<property name="interceptorNames">
+			<list>
+				<value>LogAdivce</value>
+			</list>
+		</property>
+	</bean>
+	
+</beans>
