@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper -->
+<mapper namespace="mapper.member">
+
+	<!-- resultMap -->
+
+
+	<!-- selectAllMemberList : select * from -->
+
+	<select id="selectAllMemberList" resultType="memberVO">
+      <![CDATA[
+         select * from t_member order by joinDate desc	 	
+      ]]>
+	</select>
+
+
+
+
+
+
+
+	<!-- insertMember : insert into t_member(id, pwd, name, email) values (?, 
+		?, ?, ?) -->
+	<insert id="insertMember" parameterType="memberVO">
+		<![CDATA[
+		insert into t_member (id, pwd, name, email)
+		 values (#{id}, #{pwd}, #{name}, #{email})
+			]]>
+	</insert>
+
+
+
+
+
+	<!-- deleteMember : delete from t_member where id=? -->
+	<delete id="deleteMember" parameterType="String">
+	<![CDATA[
+	   delete from t_member
+	   where
+	   MEMBER_ID=#{MEMBER_ID}
+	]]>
+	</delete>
+
+
+	<!-- 동적 SQL문 -->
+	<select id="searchMember" parameterType="memberVO" resultType="memberVO">
+      <![CDATA[
+          select * from t_member
+      ]]>
+		<where>
+			<if test=" name != ''  and  name != null">
+				MEMBER_NAME=#{MEMBER_NAME}
+			</if>
+			<if test="email != ''  and email != null ">
+				and email = #{email}
+			</if>
+		</where>
+		order by joinDate desc
+	</select>
+
+
+</mapper>
